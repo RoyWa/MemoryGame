@@ -1,0 +1,41 @@
+body {
+    background-color: black;
+    margin: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.cardWrapper {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    float: left;
+    margin-right: 10px;
+    cursor: pointer;
+    -webkit-font-smoothing: antialiased;
+}
+
+.cardFace {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.front {
+    background-color: #333;
+}
+
+.back {
+    background-color: #333;
+}
+
+.cardFace h1 {
+    margin: 0px;
+    font-size: 30px;
+    padding: 10px 0px 10px 10px;
+    color: white;
+}
+
+.cardFace.back h1 {
+    color: #91E600;
+}
