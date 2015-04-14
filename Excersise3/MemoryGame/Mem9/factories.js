@@ -23,14 +23,7 @@ app.factory('factoryNumbers', function() {
 		data.push(obj);
 		data.push(angular.copy(obj));
 	}
-
-	
-	var provider = {
-		title: 'מיספרים',
-		data:data
-	};	
-
-    return provider;
+    return data;
 });
 
 app.factory('factoryColours', function() {
@@ -51,12 +44,7 @@ app.factory('factoryColours', function() {
 		data.push(angular.copy(data[i]));
 	}
 
-	var provider = {
-		title: 'צבעים',
-		data:data
-	};	
-
-    return provider;
+	return data;
 });
 
 app.factory('factoryNames', function() {
@@ -83,35 +71,35 @@ app.factory('factoryNames', function() {
 		this.push(value);
 		this.push(value2);			
 	}, 	dataExtended);	
-
-	var provider = {
-		title: 'שמות',
-		data:dataExtended
-	};	
-
-    return provider;
+    return dataExtended;
 });
 
 app.factory('FactoryCards',function(ENUMS, factoryNames, factoryNumbers, factoryColours) {
 	
 	var FactoryCards = function(providerType){
 		var provider = null;
+		var pType = null;
 		
 		switch(providerType) {
 			case ENUMS.Providers.Numbers.id:
 				provider = factoryNumbers;
+				pType = ENUMS.Providers.Numbers;
 				break;
 			case ENUMS.Providers.Colours.id:
 				provider = factoryColours;
+				pType = ENUMS.Providers.Colours;
 				break;			
 			case ENUMS.Providers.Names.id:
 				provider = factoryNames;
+				pType = ENUMS.Providers.Names;
 				break;
 			case ENUMS.Providers.Pictures.id:
 				provider = null;
+				pType = ENUMS.Providers.Pictures;
 				break;
 			default:
 				provider = factoryNumbers;
+				pType = ENUMS.Providers.Numbers;
 		}
 		
 		// Define the initialize function
@@ -126,11 +114,11 @@ app.factory('FactoryCards',function(ENUMS, factoryNames, factoryNumbers, factory
 		};		
 		
 		this.getData = function(){
-			return this.shuffle(provider.data);
+			return this.shuffle(provider);
 		}
 		
 		this.getTitle = function(){
-			return provider.title;
+			return pType.title;
 		}		
 
 		// Call the initialize function for every new instance

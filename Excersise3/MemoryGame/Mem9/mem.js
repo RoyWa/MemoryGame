@@ -1,6 +1,6 @@
 var app= angular.module("memoryGameApp", ['ngAnimate']);
 
-app.controller("AppCtrl", ['$scope', 'ENUMS', 'FactoryCards', function ($scope, ENUMS ,FactoryCards){
+app.controller("AppCtrl", ['$scope', 'ENUMS', 'FactoryCards','$timeout', function ($scope, ENUMS ,FactoryCards, $timeout){
 		$scope.data = {};
 		$scope.data.lastSelectedIndex = null;
 		$scope.data.lastSelectedScope = null;
@@ -13,6 +13,14 @@ app.controller("AppCtrl", ['$scope', 'ENUMS', 'FactoryCards', function ($scope, 
 		}
 		
 		$scope.data.changeGame(ENUMS.Providers.Names.id);
+		$scope.data.changeGame(1);
+		$scope.data.changeGame(1);
+		$scope.data.changeGame(2);
+
+		$timeout(function() {
+				console.debug("ddddddddddddddddddddddddddddddddddddddddddddd");
+					//$scope.data.changeGame(1);	
+		}, 5000);
 		//console.table($scope.data.cards);
 }]);
 
