@@ -1,5 +1,8 @@
+"use strict";
+(function() {
 
-app.constant('ENUMS', {
+var fact= angular.module("memoryGameFactories", []);
+fact.constant('ENUMS', {
 	Providers: {
 		Numbers:	{id:1 ,title: 'Numbers'},
 		Colours:	{id:2 ,title: 'Colours'},
@@ -13,7 +16,7 @@ app.constant('ENUMS', {
 			
 			
 
-app.factory('factoryNumbers', function() {
+fact.factory('factoryNumbers', function() {
 	var colors = tinycolor.analogous("steelblue", 20, 20);
 	var  rndIndex = Math.floor((Math.random() * colors.length) + 1);
 	var c = colors[rndIndex].toHexString();
@@ -26,7 +29,7 @@ app.factory('factoryNumbers', function() {
     return data;
 });
 
-app.factory('factoryColours', function() {
+fact.factory('factoryColours', function() {
 	var data = [
 					{id:1 ,  name:'',  colour:'Blue' },
 					{id:2 ,  name:'',  colour:'DarkMagenta' },
@@ -47,7 +50,7 @@ app.factory('factoryColours', function() {
 	return data;
 });
 
-app.factory('factoryNames', function() {
+fact.factory('factoryNames', function() {
 	var data = [
 					{id:1 ,  name:'Tomy'},
 					{id:2 ,  name:'Galit'},
@@ -74,7 +77,7 @@ app.factory('factoryNames', function() {
     return dataExtended;
 });
 
-app.factory('FactoryCards',function(ENUMS, factoryNames, factoryNumbers, factoryColours) {
+fact.factory('FactoryCards',function(ENUMS, factoryNames, factoryNumbers, factoryColours) {
 	
 	var FactoryCards = function(providerType){
 		var provider = null;
@@ -129,3 +132,4 @@ app.factory('FactoryCards',function(ENUMS, factoryNames, factoryNumbers, factory
 	return (FactoryCards);	
 });
  
+ })();

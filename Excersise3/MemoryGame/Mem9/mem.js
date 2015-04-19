@@ -1,4 +1,7 @@
-var app= angular.module("memoryGameApp", ['ngAnimate']);
+"use strict";
+(function() {
+  
+var app= angular.module("memoryGameApp", ['ngAnimate', 'memoryGameFactories']);
 
 app.controller("AppCtrl", ['$scope', 'ENUMS', 'FactoryCards','$timeout', function ($scope, ENUMS ,FactoryCards, $timeout){
 		$scope.data = {};
@@ -167,3 +170,5 @@ app.animation('.answer-animation', ['doAnimate',function (doAnimate) {
     }
   };
 }]);
+
+})();
