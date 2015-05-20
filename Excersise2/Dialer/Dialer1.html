@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dialler Example</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+  <style>
+		div.row{
+			max-width: 200px;
+		}
+
+		div.col-sm-4{
+			margin-top:10px;
+		}
+		.customBtn {
+			width: 50px !important;
+			height: 50px !important;
+		}
+	</style>
+	<script src="DialerJS1.js"></script>
+</head>
+<body ng-app="phoneApp">
+    
+      
+<div class="container" ng-controller="AppCtrl">
+  <h1>Dial a phone</h1>
+ 
+  <div class="row">
+    <div class="col-sm-12" ><p>{{selected}}</p></div>
+      
+    <div class="col-sm-4" ><phone number="1" make-call="call(number)" ></div>
+    <div class="col-sm-4" ><phone number="2" make-call="call(number)" ></div>
+    <div class="col-sm-4" ><phone number="3" make-call="call(number)" ></div>
+      
+    <div class="col-sm-4" ><phone number="4" make-call="call(number)" ></div>
+    <div class="col-sm-4" ><phone number="5" make-call="call(number)" ></div>
+    <div class="col-sm-4" ><phone number="6" make-call="call(number)" ></div>
+      
+    <div class="col-sm-4" ><phone number="7" make-call="call(number)" ></div>
+    <div class="col-sm-4" ><phone number="8" make-call="call(number)" ></div>
+    <div class="col-sm-4" ><phone number="9" make-call="call(number)" ></div>
+      
+    <div class="col-sm-4" ><phone number="*" make-call="call(number)" ></div>
+    <div class="col-sm-4" ><phone number="0" make-call="call(number)" ></div>
+    <div class="col-sm-4" ><phone number="#" make-call="call(number)" ></div>
+
+	<div class="col-sm-4" ><phone number="" make-call="call(number)"><span class='glyphicon glyphicon-earphone'></span></phone ></div>
+    <div class="col-sm-4" ><phone number="" make-call="call(number)"><span class='glyphicon glyphicon-facetime-video'></span></phone ></div>
+    <div class="col-sm-4" ><phone number="" make-call="call(number)"><span class='glyphicon glyphicon-chevron-left'></span></phone ></div>
+  </div>
+</div>
+</body>
+</html>

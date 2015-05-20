@@ -1,0 +1,57 @@
+{  
+   "records":[  
+      {  
+         "id":0,
+         "name":"Hunting",
+         "sub":[  
+            {  
+               "name":"English Pointer",
+               "price":20 ,
+               "img": "pointer.jpeg"
+            },
+            {  
+               "name":"Vizsla",
+               "price": 10,
+               "img": "vizsla.jpeg"
+            }
+         ]
+      },
+      {  
+         "id":1,
+         "name":"Lap Dog",
+         "sub":[  
+            {  
+               "name":"Yorkshire",
+               "price": 20,
+               "img": "yorkshire.jpeg"
+            },
+            {  
+               "name":"Poodle",
+               "price": 90,
+               "img": "poodle.jpeg"
+            }
+         ]
+      },
+      {  
+         "id":2,
+         "name":"Sporting",
+         "sub":[  
+            {  
+               "name":"Labrador Retriever",
+               "price": 10,
+               "img": "labrador.jpeg"
+            },
+            {  
+               "name":"Golden Retriever",
+               "price": 60,
+               "img": "golden.jpeg"
+            },
+            {  
+               "name":"English Cocker Spaniel",
+               "price": 20,
+               "img": "cocker.jpeg"
+            }
+         ]
+      }
+   ]
+}

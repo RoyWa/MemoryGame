@@ -1,7 +1,9 @@
 "use strict";
 (function() {
-  
+
+
 var app= angular.module("memoryGameApp", ['ngAnimate', 'memoryGameFactories']);
+
 
 app.controller("AppCtrl", ['$scope', 'ENUMS', 'FactoryCards','$timeout', function ($scope, ENUMS ,FactoryCards, $timeout){
 		$scope.data = {};
@@ -30,7 +32,7 @@ app.controller("AppCtrl", ['$scope', 'ENUMS', 'FactoryCards','$timeout', functio
 		
 		$scope.data.changeGame(ENUMS.Providers.Names.id);
 		$timeout(function() {
-				$scope.data.changeGame(1);	
+				//$scope.data.changeGame(1);	
 		}, 5000);
 		//console.table($scope.data.cards);
 }]);

@@ -1,0 +1,158 @@
+<!doctype html> 
+<html ng-app="RoyApp">
+<head>
+	<meta http-equiv="Content-Language" content="en" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>###### RRR ######</title>
+
+
+
+	<link rel="stylesheet" type="text/css" href="css/splitter.css" />
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+
+	<script type="text/javascript">
+		$().ready(function() {
+
+	// Main vertical splitter, anchored to the browser window
+	$("#MySplitter").splitter({
+		type: "v",
+		outline: true,
+		minLeft: 200, sizeLeft: 200, maxLeft: 950,
+		anchorToWindow: true,
+		accessKey: "L"
+	});
+	// Second vertical splitter, nested in the right pane of the main one.
+	$("#CenterAndRight").splitter({
+		type: "v",
+		outline: true,
+		minRight: 300, sizeRight: 300, maxRight: 950,
+		accessKey: "R"
+	});
+});
+	</script>
+</head>
+<body ng-controller="MainCtrl">
+
+	<div id="header" style="border-bottom: thick solid #ff0000;">
+		<!-- head -->
+		<table>
+			<tr>
+				<td>
+					<form ng-app="myApp"  name="myForm" novalidate>
+						<p>Email:
+							<input type="email" name="email" ng-model="email" required>
+							<span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+								<span ng-show="myForm.email.$error.required">Email is required.</span>
+								<span ng-show="myForm.email.$error.email">Invalid email address.</span>
+							</span>
+						</p>
+						<p>Pass&nbsp;:
+							<input type="text" name="user" ng-model="user" required>
+							<span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+								<span ng-show="myForm.user.$error.required">Username is required.</span>
+							</span>
+						</p>
+						<p>
+							<input type="submit"
+							ng-disabled="myForm.user.$invalid ||  
+							myForm.email.$dirty && myForm.email.$invalid">
+						</p>
+					</form>
+				</td>
+				<td>&nbsp;&nbsp;&nbsp;</td>
+				<td>
+					<nav class="navbar navbar-default">
+						<div class="container">
+							<div>
+								<ul class="nav navbar-nav">
+									<li ng-repeat="catalog in catalogs | orderObjectBy:'id' "  ng-click="setCatalog(catalog)"><a href="#">{{catalog.title}}</a></li>
+								</ul>
+							</div>
+						</div>
+					</nav>
+				</td>
+			</tr></table>
+		</div>
+
+		<div id="MySplitter">
+			<div class="SplitterPane">
+				<!-- LEFT  http://www.bootply.com/6CITx12Kxh-->
+
+				<ul class="nav nav-stacked" >
+					<li  ng-repeat="category in categories" class="nav-header"> <a href="#" data-toggle="collapse" data-target="#{{category.name}}" ng-click="setCurrentCategory(category, null)"   ng-class="{active: isSelected(category)}"  style="color:black">{{category.name}} <i ng-class="isSelected(category) ? 'glyphicon glyphicon-chevron-down' : 'glyphicon glyphicon-chevron-right'"></i></a>
+						<ul class="nav nav-stacked  collapse" id="{{category.name}}">
+							<li ng-repeat="sub in category.sub"><a href="#" ng-click="setCurrentCategory(category, sub)">{{sub.name}}</a></li>
+						</ul>
+					</li>
+				</ul>
+
+			</div> 
+
+			<div id="CenterAndRight">
+				<div class="SplitterPane">
+					<!-- Center -->
+					<div style="margin-left: 50px; ">
+						<div ng-repeat="product in currentCategory.sub | filter:currentSub" >
+							<div><a href="{{product.name}}" target="_blank">{{product.name}}</a> 
+								<br> Price:{{product.price | currency:" USD$":0}}          
+								<button type="button" class="btn btn-default btn-sm" ng-click="addToCart(product)">
+									<span class="glyphicon glyphicon-plus"></span> Plus
+								</button>
+							</div>
+							<div><img ng-src="img/{{product.img}}" width="100" height="180" ></div>
+
+							<hr/>
+						</div>
+					</div>
+				</div>
+
+				<div class="SplitterPane">
+					<!-- right -->
+					<table class="table table-striped" style="margin-left: 1px; margin-right: 1px;">
+						<thead>
+							<tr>
+								<th>Product</th>
+								<th>Name</th>
+								<th>Price</th>
+								<th>Quantety</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="product in shopingCart">
+								<td><img ng-src="img/{{product.img}}" width="50" height="80" ></td>
+								<td>{{ product.name }}</td>
+								<td>{{ product.price | currency }}</td>
+								<td>{{ product.quantety }}</td>
+								<td>
+									<button class="btn" ng-click="removeCart(product)">
+										<span class="glyphicon glyphicon-trash"></span>&times;
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td>Total</td>
+								<td>&nbsp;</td>
+								<td colspan="3">{{totalCart | currency}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div> <!-- #CenterAndRight -->
+
+		</div> <!-- #MySplitter -->
+
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/factories.js"></script>
+		<script src="js/store.js"></script>
+
+		
+		<script type="text/javascript" src="js/splitter.js"></script>	
+	</body>
+	</html>

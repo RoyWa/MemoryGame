@@ -79,7 +79,9 @@ fact.factory('factoryNames', function() {
 
 fact.factory('FactoryCards',function(ENUMS, factoryNames, factoryNumbers, factoryColours) {
 	
+	//module pattern - use  'closure'  which let you define private implementation details (variables, functions) that are hidden from the outside world
 	var FactoryCards = function(providerType){
+		var _factoryCards = this;
 		var provider = null;
 		var pType = null;
 		
@@ -106,26 +108,32 @@ fact.factory('FactoryCards',function(ENUMS, factoryNames, factoryNumbers, factor
 		}
 		
 		// Define the initialize function
-		this.initialize = function() {
+		_factoryCards.initialize = function() {
 
 		};
 
 
-		this.shuffle = function (o){ 
+		_factoryCards.shuffle = function (o){ 
 			for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
 			return o;
 		};		
 		
-		this.getData = function(){
-			return this.shuffle(provider);
+		_factoryCards.getData = function(){
+			return _factoryCards.shuffle(provider);
 		}
 		
-		this.getTitle = function(){
+		_factoryCards.getTitle = function(){
 			return pType.title;
 		}		
 
 		// Call the initialize function for every new instance
-		this.initialize();
+		_factoryCards.initialize();
+
+		var publicAPI = {
+           getData: _factoryCards.getData
+        };
+
+        return publicAPI;
 	}
  
 	// Return a reference to the function

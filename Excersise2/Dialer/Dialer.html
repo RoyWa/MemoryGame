@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+  <style>
+		div.row{
+			max-width: 200px;
+		}
+
+		div.col-sm-4{
+			margin-top:10px;
+		}
+		.customBtn {
+			width: 50px !important;
+			height: 50px !important;
+		}
+	</style>
+	<script src="DialerJS.js"></script>
+</head>
+<body ng-app="phoneApp">
+    
+      
+<div class="container">
+  <h1>Dial a phone</h1>
+ 
+  <div class="row">
+    <div class="col-sm-12" ><input type="text" class="form-control" id="phone" /></div>
+      
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">1</button></div>
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">2</button></div>
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">3</button></div>
+      
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">4</button></div>
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">5</button></div>
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">6</button></div>
+      
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">7</button></div>
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">8</button></div>
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">9</button></div>
+      
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">*</button></div>
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">0</button></div>
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn ">#</button></div>
+
+	<div class="col-sm-4" ><button type="button" class="btn btn-info customBtn "><span class="glyphicon glyphicon-earphone"></span></button></div>
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn "><span class="glyphicon glyphicon-facetime-video"></span></button></div>
+    <div class="col-sm-4" ><button type="button" class="btn btn-info customBtn "><span class="glyphicon glyphicon-chevron-left"></span></button></div>
+  </div>
+</div>
+</body>
+</html>
