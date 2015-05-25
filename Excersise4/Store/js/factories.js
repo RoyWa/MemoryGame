@@ -19,9 +19,8 @@
 
 		myService.async = function(jsonFile) {
 			var deffered = $q.defer(); //rrr- declaring the deffer over here will enforce to return new promise everytime
-			$http.get(jsonFile)
+			$http.get(jsonFile, {cache:true })
 			.success(	function (d, status) {
-				console.log('status', status);
 				data = d.records;
       			deffered.resolve();
   			})
