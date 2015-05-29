@@ -1,7 +1,10 @@
 (function () {
   'use strict';
 
-  var app = angular.module('RoyApp', [ 'FactoriesModule'  ])
+  var app = angular.module('RoyApp', [ 'FactoriesModule' , 'DirectivesModule' ]);
+
+
+
   app.controller('MainCtrl', [ 'ENUMS', 'fetchDataService' , '$scope' , '$http', function (ENUMS, fetch, $scope , $http ) {
 
     $scope.catalogs           = ENUMS.Providers;
@@ -12,41 +15,22 @@
     $scope.shopingCart        = [];
     $scope.totalCart          = 0;
 
-    $scope.setCatalog = function (catalog) {
-      console.log('$scope.setCatalog ', catalog  );
-      fetch.async(catalog.data).then(function() {
-        $scope.categories = fetch.data();
-        $scope.currentCatalog  =  catalog;
-        $scope.currentCategory    = {};
-        $scope.currentSub         = {};
-        console.table( $scope.categories);
-      });
-    }
-    $scope.setCatalog(ENUMS.Providers.Movies); 
-
-/*
-            $scope.setCatalog = function (catalog) {
-                console.log('$scope.setCatalog ', catalog  );
-                fetch.async(catalog.data).then(function() {
-                      $scope.currentCatalog  =  catalog;
-                      console.table( $scope.currentCatalog);
-                      $scope.$emit("myEvent", fetch.data());
-                 });
-            }
-            $scope.setCatalog(ENUMS.Providers.Movies); 
-
-
-            $scope.$on('myEvent', function (event, args) {
-                    console.log('myEvent' , args);
-                    $scope.categories =  args;
-                    
-             });
-
-*/            
+$scope.setCatalog = function (catalog) {
+  console.log('$scope.setCatalog ', catalog  );
+  fetch.async(catalog.data).then(function() {
+    $scope.categories = fetch.data();
+    $scope.currentCatalog  =  catalog;
+    $scope.currentCategory    = {};
+    $scope.currentSub         = {};
+    console.table( $scope.categories);
+  });
+}
+$scope.setCatalog(ENUMS.Providers.Movies); 
+        
   
-  $scope.setCurrentCategory = function (category , sub) {
+$scope.setCurrentCategory = function (category , sub) {
   $scope.currentCategory = category;
-  $scope.currentSub = sub || null;
+  $scope.currentSub = sub || {};
 }
 
 $scope.isSelected = function (category) {

@@ -4,10 +4,10 @@
 	var fact= angular.module("FactoriesModule", []);
 	fact.constant('ENUMS', {
 		Providers: {
-			Movies:	{id:1 ,title: 'Movies Catalog', data: "movies.json"},
-			Dogs:	{id:2 ,title: 'Dogs Sell & Adoption',  data: "dogs.json"},
-			Cloths: {id:3 ,title: 'Cloths & Febrics',  data: "cloths.json"},
-			Gadgets:{id:4 ,title: 'Gadgets & Electronics',  data: "gadgets.json"}
+			Movies:	{id:1 ,title: 'Movies Catalog', data: "data/movies.json"},
+			Dogs:	{id:2 ,title: 'Dogs Sell & Adoption',  data: "data/dogs.json"},
+			Cloths: {id:3 ,title: 'Cloths & Febrics',  data: "data/cloths.json"},
+			Gadgets:{id:4 ,title: 'Gadgets & Electronics',  data: "data/gadgets.json"}
 		}
 	});
 

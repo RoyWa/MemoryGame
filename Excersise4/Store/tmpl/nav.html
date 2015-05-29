@@ -1,0 +1,13 @@
+<ul class="nav nav-stacked" >
+	<li  ng-repeat="category in categories" class="nav-header">
+		<a href="#" data-toggle="collapse" data-target="#{{category.name}}" ng-click="setCurrentCategory(category, null)" ng-class="{active: isSelected(category)}"  style="color:black">{{category.name}} 
+			<i ng-class="isSelected(category) ? 'glyphicon glyphicon-chevron-down' : 'glyphicon glyphicon-chevron-right'">
+			</i>
+		</a>
+		<ul class="nav nav-stacked  collapse" id="{{category.name}}">
+			<li ng-repeat="sub in category.sub">
+				<a href="#" ng-click="setCurrentCategory(category, sub)">{{sub.name}}</a>
+			</li>
+		</ul>
+	</li>
+</ul>

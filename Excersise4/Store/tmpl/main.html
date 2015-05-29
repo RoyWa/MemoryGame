@@ -1,0 +1,12 @@
+<div style="margin-left: 50px; ">
+	<div ng-repeat="product in currentCategory.sub | filter:currentSub" >
+		<div><a href="{{product.name}}" target="_blank">{{product.name}}</a> 
+			<br> Price:{{product.price | currency:" USD$":0}}          
+			<button type="button" class="btn btn-default btn-sm" ng-click="addToCart(product)">
+				<span class="glyphicon glyphicon-plus"></span> Plus
+			</button>
+		</div>
+		<div><img ng-src="img/{{product.img}}" width="100" height="180" ></div>
+		<hr/>
+	</div>
+</div>
