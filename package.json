@@ -1,0 +1,24 @@
+{
+  "name": "rrr",
+  "version": "1.0.0",
+  "description": "testtt",
+  "main": "store.js",
+  "dependencies": {
+    "grunt-ngdocs": "^0.2.7",
+    "grunt": "^0.4.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RoyWa/MemoryGame.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RoyWa/MemoryGame/issues"
+  },
+  "homepage": "https://github.com/RoyWa/MemoryGame#readme"
+}

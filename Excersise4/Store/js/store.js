@@ -1,6 +1,12 @@
 (function () {
   'use strict';
 
+  /**
+ * @ngdoc function
+ * @name RoyApp
+ * @description
+ * This is the main application module 
+ **/
   var app = angular.module('RoyApp', [ 'FactoriesModule' , 'DirectivesModule' ]);
 
 
@@ -61,6 +67,12 @@ $scope.removeCart = function(product) {
 }
 }]);
 
+/**
+ * @ngdoc filter
+ * @name .filter:orderObjectBy //  middle part is always filter 
+ * @function // all filters are a function
+ * 
+ */
 app.filter('orderObjectBy', function(){
  return function(input, attribute) {
   if (!angular.isObject(input)) return input;

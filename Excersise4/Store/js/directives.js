@@ -3,6 +3,14 @@
 
 var app = angular.module('DirectivesModule', [ ]);
 
+/**
+    * @ngdoc directive 
+    * @name DirectivesModule.directive:topHeader 
+    * @restrict E 
+    * @element <top-header></top-header>
+    * @priority 1000 
+    * @scope  true 
+**/
 app.directive("topHeader", function() {
     return {
         restrict: "E",
