@@ -22,6 +22,14 @@ app.directive("topHeader", function() {
     };
 });
 
+/**
+    * @ngdoc directive 
+    * @name DirectivesModule.directive:navMenu 
+    * @restrict E 
+    * @element <nav-menu></nav-menu>
+    * @priority 1000 
+    * @scope  true 
+**/
 app.directive("navMenu", function() {
     return {
         restrict: "E",
@@ -33,6 +41,14 @@ app.directive("navMenu", function() {
     };
 });
 
+/**
+    * @ngdoc directive 
+    * @name DirectivesModule.directive:workingArea 
+    * @restrict E 
+    * @element <working-area></working-area>
+    * @priority 1000 
+    * @scope  true 
+**/
 app.directive("workingArea", function() {
     return {
         restrict: "E",
@@ -44,6 +60,14 @@ app.directive("workingArea", function() {
     };
 });
 
+/**
+    * @ngdoc directive 
+    * @name DirectivesModule.directive:shoppingCart 
+    * @restrict E 
+    * @element <shopping-cart></shopping-cart>
+    * @priority 1000 
+    * @scope  true 
+**/
 app.directive("shoppingCart", function() {
     return {
         restrict: "E",

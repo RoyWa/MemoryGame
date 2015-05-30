@@ -15,7 +15,14 @@ module.exports = function(grunt) {
     },
 
     ngdocs:{
-      all:['Excersise4/Store/js/*.js']
+      options:{
+        dest: 'docs'
+
+      },
+      api:{
+        src:['Excersise4/Store/js/*.js'],
+        title:'Roy`s Store -API Documentation'
+      }
    }
 
 
