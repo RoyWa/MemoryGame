@@ -24,10 +24,10 @@
  * @description
  * Speed up my AngularJS app by automatically minifying, combining, and automatically caching your HTML templates with $templateCache
  */
- app.run(["$templateCache", function($templateCache) {
-  $templateCache.put("home.html",
-    // contents for home.html ...
-  );
+ app.run(["$templateCache", function ($templateCache){
+  $templateCache.put('test.html', 'Hello rrrr!');
+ }]);
+
 
 /**
  * @ngdoc controller

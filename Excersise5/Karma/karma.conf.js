@@ -18,7 +18,7 @@ module.exports = function(config) {
 
         '/Users/roy.wallerstein/code/snc/geneva/app-automation/glide-workflow/src/main/plugins/com.glideapp.workflow/ui.html/scripts/angular.js',
         '/Users/roy.wallerstein/code/snc/geneva/glide/glide-ng/src/main/plugins/com.glide.ui.angular/ui.html/scripts/angular/angular-mocks.js',
-        '/Users/roy.wallerstein/Documents/WORK/Learning/HandsOn/MemoryGame/Excersise5/KarmaUnitTest.js'
+        '/Users/roy.wallerstein/Documents/WORK/Learning/HandsOn/MemoryGame/Excersise5/Karma/KarmaUnitTest.js'
     ],
 
 
