@@ -11,10 +11,24 @@
  *
  *   - loads all the submodules
  *   - defines routes via `ENUMS`
+ * https://github.com/angular/dgeni-packages/blob/master/NOTES.md#ngdoc-tags
  **/
   var app = angular.module('RoyApp', [ 'FactoriesModule' , 'DirectivesModule' ]);
 
-  
+
+/**
+ * @ngdoc method
+ * @name RoyApp.controller:MainCtrl#run
+ * @requires $templateCache
+ * @methodOf RoyApp.controller:MainCtrl
+ * @description
+ * Speed up my AngularJS app by automatically minifying, combining, and automatically caching your HTML templates with $templateCache
+ */
+ app.run(["$templateCache", function($templateCache) {
+  $templateCache.put("home.html",
+    // contents for home.html ...
+  );
+
 /**
  * @ngdoc controller
  * @name RoyApp.controller:MainCtrl

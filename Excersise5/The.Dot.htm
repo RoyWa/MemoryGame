@@ -1,0 +1,59 @@
+<!doctype html> 
+<html ng-app="RoyApp">
+<head>
+	<meta http-equiv="Content-Language" content="en" />
+	<meta http-equiv="Content-Type" content="text/html; charset=cd utf-8" />
+	<title>###### www ######</title>
+
+	
+	<!-- 3party lib -->
+	<script type="text/javascript" src="js/lib/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+ 	<script type="text/javascript" src="js/lib/angular.min.js"></script>
+
+	<script type="text/javascript">
+
+		  var app = angular.module('RoyApp', []);
+
+		   app.controller('aaa', [ '$scope' , function ($scope) {
+
+		   }]);
+
+		   app.controller('bbb', [ '$scope' , function ($scope) {
+
+		   }]);
+
+	</script>
+</head>
+<body >
+		<table border="1">
+		<tr>
+			<td>
+					<input type="text" ng-model="data.message">
+					<h1>{{message}}</h1>
+					<div ng-controller="aaa">
+								<input type="text" ng-model="data.message">
+								<h1>{{message}}</h1>
+					</div>
+					<div ng-controller="bbb">
+								<input type="text" ng-model="data.message">
+								<h1>{{message}}</h1>
+					</div>
+			</td>
+			<td>&nbsp;</td>
+			<td>
+					<input type="text" ng-model="message">
+					<h1>{{message}}</h1>
+					<div ng-controller="aaa">
+								<input type="text" ng-model="message">
+								<h1>{{message}}</h1>
+					</div>
+					<div ng-controller="bbb">
+								<input type="text" ng-model="message">
+								<h1>{{message}}</h1>
+					</div>				
+			</td>
+		</tr>
+		</table>
+</body>
+</html>
