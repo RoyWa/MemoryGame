@@ -1,0 +1,103 @@
+{  
+   "records":[  
+      {  
+         "id":0,
+         "name":"Drama",
+         "sub":[  
+            {  
+               "name":"Citizen Kane (1941)",
+               "price":20 ,
+               "img": "kane.jpeg"
+            },
+            {  
+               "name":"The Godfather (1972)",
+               "price": 10,
+               "img": "goodfater.jpeg"
+            },
+            {  
+               "name":"Casablanca (1942)",
+               "price": 70,
+               "img": "casablanka.jpeg"
+            },
+            {  
+               "name":"The Bicycle Thief (1949)",
+               "price": 40,
+               "img": "bike.jpeg"
+            }
+         ]
+      },
+      {  
+         "id":1,
+         "name":"Action",
+         "sub":[  
+            {  
+               "name":"Die Hard (1988)",
+               "price": 20,
+               "img": "dieHard.jpeg"
+            },
+            {  
+               "name":"Star Trek (2009)",
+               "price": 90,
+               "img": "starTreck.jpeg"
+            },
+            {  
+               "name":"The Terminator (1984)",
+               "price": 30,
+               "img": "theTerminator.jpeg"
+            },
+            {  
+               "name":"Star Wars (1980)",
+               "price": 60,
+               "img": "starWars.jpeg"
+            },
+            {  
+               "name":"Blade Runner (1982)",
+               "price": 10,
+               "img": "bladeRunner.jpeg"
+            }
+         ]
+      },
+      {  
+         "id":2,
+         "name":"Comedy",
+         "sub":[  
+            {  
+               "name":"The Gold Rush (1925)",
+               "price": 10,
+               "img": "gold.jpeg"
+            },
+            {  
+               "name":"Modern Times (1936)",
+               "price": 60,
+               "img": "modern.jpeg"
+            },
+            {  
+               "name":"Who Framed Roger Rabbit (1988)",
+               "price": 20,
+               "img": "rabbit.jpeg"
+            }
+         ]
+      },
+      {  
+         "id":3,
+         "name":"TV",
+         "sub":[  
+            {  
+               "name":"Breaking Bad (2008)",
+               "price": 30,
+               "img": "bad.jpeg"
+            },
+            {  
+               "name":"Game of Thrones (2011)",
+               "price": 70,
+               "img": "game.jpeg"
+            },
+            {  
+               "name":"House M.D. (2004)",
+               "price": 20,
+               "img": "house.jpeg"
+            }
+         ]
+      }
+   ]
+}

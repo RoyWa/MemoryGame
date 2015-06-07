@@ -44,7 +44,9 @@ app.directive("diagram", function($templateCache) {
     return {
         restrict: "E",
         transclude: true,
-        scope: true, //true = meaning should act as a child scop with ref to the parent
+        scope: {
+           mainApp:'@app'
+        },
         template: $templateCache.get('container.html') ,
         controller: function($scope, $element, $attrs, $transclude) { 
                 var root;
@@ -57,7 +59,9 @@ app.directive("diagram", function($templateCache) {
                 var margin = {top: 20, right: 120, bottom: 20, left: 120};
                 var width = 960 - margin.right - margin.left;
                 var height = 500 - margin.top - margin.bottom;
-                 
+                
+                var generatedData = {"name": $scope.mainApp , "children": [] }
+
 
 
                 function initialized(){
@@ -97,41 +101,29 @@ app.directive("diagram", function($templateCache) {
                     return treeData[0];
                 }
 
+                $scope.buidData= function (node, targetNode){
+                  console.info('@@@@@@@@@@@', node);
+
+                  var requires = angular.module(node).requires;
+                  if (requires.length===0 || angular.module(node)._Spy_) return;
+
+                  //angular.module(node)._Spy_ = true ; //Dirty flag to avoid graph recursion
+                  angular.forEach(requires, function(value, key) {
+                    if (value!='_Spy_'){
+                      var obj = {"name": value, "children": [] };
+                      $scope.buidData(value , obj.children);
+                      this.push(obj);
+                    }
+                  }, targetNode);
+
+                  console.info("#######", JSON.stringify( generatedData, null , 2));                                    
+                  
+                  $scope.setRootData(generatedData);                     
+                }
+
                 $scope.setRootData= function (data){
-                    root = getRootData2();//data;
+                    root = data;
                 }
-
-                function getRootData2(){
-                    var treeData = [
-                                      {
-                                        "name": "Top Level",
-                                        "children": [
-                                          {
-                                            "name": "Level 2: A",
-                                            "children": [
-                                              {
-                                                "name": "Son of A"
-                                              },
-                                              {
-                                                "name": "Daughter of A"
-                                              },
-                                              {
-                                                "name": "Daughter of A"
-                                              },
-                                              {
-                                                "name": "Daughter of A"
-                                              }                                                                                            
-                                            ]
-                                          },
-                                          {
-                                            "name": "Level 2: B"
-                                          }
-                                        ]
-                                      }
-                                    ];
-                    return treeData[0];
-                }
-
 
                 // ************** Generate the tree diagram  *****************
                 function update () {
@@ -184,8 +176,14 @@ app.directive("diagram", function($templateCache) {
                     update();
                 }
 
+               
+
                 initialized();                
                 $scope.draw();
+
+                $scope.buidData($scope.mainApp, generatedData.children);
+                $scope.draw();
+
         },
         link: function(scope) {
 

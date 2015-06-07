@@ -1,0 +1,77 @@
+<!doctype html> 
+<html ng-app="RoyApp">
+<head>
+	<meta http-equiv="Content-Language" content="en" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>###### RRR ######</title>
+	<link rel="stylesheet" type="text/css" href="css/splitter.css" />
+	<link rel="stylesheet" type="text/css" href="_Spy_/_Spy_.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	
+	<!-- 3party lib -->
+	<script type="text/javascript" src="js/lib/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+ 	<script type="text/javascript" src="js/lib/angular.min.js"></script>
+ 	<script type="text/javascript" src="_Spy_/d3.v3.min.js"></script>
+
+ 	<!-- need to go togethher the following two js -->
+ 	<script type="text/javascript" src="js/lib/splitter/jquery.js"></script> 
+	<script type="text/javascript" src="js/lib/splitter/splitter.js"></script>
+	
+	<!-- app js -->
+	<script type="text/javascript" src="js/factories.js"></script>
+	<script type="text/javascript" src="js/directives.js"></script>
+	<script type="text/javascript" src="js/store.js"></script>	
+<script type="text/javascript" src="_Spy_/_Spy_.js"></script>  
+
+	<script type="text/javascript">
+		$().ready(function() {
+
+	// Main vertical splitter, anchored to the browser window
+	$("#MySplitter").splitter({
+		type: "v",
+		outline: true,
+		minLeft: 200, sizeLeft: 200, maxLeft: 950,
+		anchorToWindow: true,
+		accessKey: "L"
+	});
+	// Second vertical splitter, nested in the right pane of the main one.
+	$("#CenterAndRight").splitter({
+		type: "v",
+		outline: true,
+		minRight: 300, sizeRight: 300, maxRight: 950,
+		accessKey: "R"
+	});
+});
+	</script>
+
+</head>
+<body ng-controller="MainCtrl">
+	<div id="header" style="border-bottom: thick solid #ff0000;">
+		<!-- head -->
+		<top-header></top-header>
+	</div>
+
+	<div id="MySplitter">
+		<div class="SplitterPane">
+			<!-- left -->
+			<nav-Menu></nav-Menu>
+		</div> 
+
+		<div id="CenterAndRight">
+			<div class="SplitterPane">
+				<!-- Center -->
+				<diagram app="RoyApp" ></diagram>
+				<working-area></working-area>
+			</div>
+
+			<div class="SplitterPane">
+				<!-- right -->
+				<shopping-cart>fdf</shopping-cart>
+			</div>
+
+		</div> <!-- #CenterAndRight -->
+
+	</div> <!-- #MySplitter -->
+</body>
+</html>

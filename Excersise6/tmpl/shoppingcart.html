@@ -1,0 +1,29 @@
+<table class="table table-striped" style="margin-left: 1px; margin-right: 1px;">
+	<thead>
+		<tr>
+			<th>Product</th>
+			<th>Name</th>
+			<th>Price</th>
+			<th>Quantety</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="product in shopingCart">
+			<td><img ng-src="img/{{product.img}}" width="50" height="80" ></td>
+			<td>{{ product.name }}</td>
+			<td>{{ product.price | currency }}</td>
+			<td>{{ product.quantety }}</td>
+			<td>
+				<button class="btn" ng-click="removeCart(product)">
+					<span class="glyphicon glyphicon-trash"></span>&times;
+				</button>
+			</td>
+		</tr>
+		<tr>
+			<td>Total</td>
+			<td>&nbsp;</td>
+			<td colspan="3">{{totalCart | currency}}</td>
+		</tr>
+	</tbody>
+</table>
