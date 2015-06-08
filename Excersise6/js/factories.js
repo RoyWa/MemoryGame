@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var fact= angular.module("FactoriesModule", []);
+	var fact= angular.module("FactoriesModule", ["DirectivesModule"]);
 
 	/**
 	* @ngdoc interface

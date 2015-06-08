@@ -49,7 +49,7 @@ app.directive("diagram", function($templateCache) {
         },
         template: $templateCache.get('container.html') ,
         controller: function($scope, $element, $attrs, $transclude) { 
-                var root;
+             
                 var tree;
 
                 var svg;
@@ -60,45 +60,27 @@ app.directive("diagram", function($templateCache) {
                 var width = 960 - margin.right - margin.left;
                 var height = 500 - margin.top - margin.bottom;
                 
+                var root;
+
+
+                var duration = 750; 
+
                 var generatedData = {"name": $scope.mainApp , "children": [] }
 
 
 
                 function initialized(){
                     tree = d3.layout.tree().size([height, width]);
-                    diagonal = d3.svg.diagonal().projection(function(d) { return [d.y, d.x]; });
+                    diagonal = d3.svg.diagonal().projection(function(d) { return [d.x, d.y]; });
 
                     svg = d3.select("#treeContainer").append("svg")
                      .attr("width", width + margin.right + margin.left)
                      .attr("height", height + margin.top + margin.bottom)
                      .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-                    
-                     root=  getRootData();
                 }
 
                 function getRootData (){
-                    var treeData = [
-                                      {
-                                        "name": "Top Level",
-                                        "children": [
-                                          {
-                                            "name": "Level 2: A",
-                                            "children": [
-                                              {
-                                                "name": "Son of A"
-                                              },
-                                              {
-                                                "name": "Daughter of A"
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "name": "Level 2: B"
-                                          }
-                                        ]
-                                      }
-                                    ];
-                    return treeData[0];
+                    return root;
                 }
 
                 $scope.buidData= function (node, targetNode){
@@ -110,7 +92,7 @@ app.directive("diagram", function($templateCache) {
                   //angular.module(node)._Spy_ = true ; //Dirty flag to avoid graph recursion
                   angular.forEach(requires, function(value, key) {
                     if (value!='_Spy_'){
-                      var obj = {"name": value, "children": [] };
+                      var obj = {"name": value, "color": "red" , "children": [] };
                       $scope.buidData(value , obj.children);
                       this.push(obj);
                     }
@@ -123,10 +105,12 @@ app.directive("diagram", function($templateCache) {
 
                 $scope.setRootData= function (data){
                     root = data;
+                    root.x0 = height / 2;
+                    root.y0 = 0;
                 }
 
                 // ************** Generate the tree diagram  *****************
-                function update () {
+                function update (source) {
 
                  var container = svg.append("g").attr("id","container");
 
@@ -135,7 +119,7 @@ app.directive("diagram", function($templateCache) {
                    links = tree.links(nodes);
 
                   // Normalize for fixed-depth.
-                  nodes.forEach(function(d) { d.y = d.depth * 180; });
+                  nodes.forEach(function(d) { d.y = d.depth * 100; });
 
                   // Declare the nodesâ€¦
                  var node = container.selectAll("g.node").data(nodes, function(d) { return d.id || (d.id = ++i); });
@@ -143,19 +127,44 @@ app.directive("diagram", function($templateCache) {
                   // Enter the nodes.
                   var nodeEnter = node.enter().append("g")
                    .attr("class", "node")
-                   .attr("transform", function(d) { 
-                    return "translate(" + d.y + "," + d.x + ")"; });
+                   .attr("transform", function(d) {return "translate(" + source.x0 + "," + source.y0 + ")"; })
+                   .on("click", click);
 
                   nodeEnter.append("circle")
                    .attr("r", 10)
-                   .style("fill", "#fff");
+                   .style("fill", function(d) { return d.color; });
 
                   nodeEnter.append("text")
-                   .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
-                   .attr("dy", ".35em")
-                   .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-                   .text(function(d) { return d.name; })
-                   .style("fill-opacity", 1);
+                     .attr("y", function(d) { return d.children || d._children ? -18 : 18; })
+                     .attr("dy", ".35em")
+                     .attr("text-anchor", "middle")
+                     .text(function(d) { return d.name; })
+                     .style("fill-opacity", 1);
+
+
+  // Transition nodes to their new position.
+  var nodeUpdate = node.transition()
+    .duration(duration)
+    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+  nodeUpdate.select("circle")
+    .attr("r", 10)
+    .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+  nodeUpdate.select("text")
+    .style("fill-opacity", 1);
+
+  // Transition exiting nodes to the parent's new position.
+  var nodeExit = node.exit().transition()
+    .duration(duration)
+    .attr("transform", function(d) { return "translate(" + source.x + "," + source.y + ")"; })
+    .remove();
+
+  nodeExit.select("circle")
+    .attr("r", 1e-6);
+
+  nodeExit.select("text")
+    .style("fill-opacity", 1e-6);
 
                   // Declare the linksâ€¦
                   var link = container.selectAll("path.link")
@@ -164,25 +173,63 @@ app.directive("diagram", function($templateCache) {
                   // Enter the links.
                   link.enter().insert("path", "g")
                    .attr("class", "link")
-                   .attr("d", diagonal);
+                     .attr("d", function(d) {
+    var o = {x: source.x0, y: source.y0};
+    return diagonal({source: o, target: o});
+    });
+
+
+ // Transition links to their new position.
+  link.transition()
+    .duration(duration)
+    .attr("d", diagonal);
+
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+    .duration(duration)
+    .attr("d", function(d) {
+    var o = {x: source.x, y: source.y};
+    return diagonal({source: o, target: o});
+    })
+    .remove();
+
+  // Stash the old positions for transition.
+  nodes.forEach(function(d) {
+  d.x0 = d.x;
+  d.y0 = d.y;
+  });
+
 
                 }
 
-                $scope.draw  = function () {
+
+// Toggle children on click.
+function click(d) {
+  if (d.children) {
+  d._children = d.children;
+  d.children = null;
+  } else {
+  d.children = d._children;
+  d._children = null;
+  }
+  $scope.draw(d);
+}
+
+
+                $scope.draw  = function (d) {
                     if (d3.select('#container')[0][0] !=null){
                         d3.select('#container').remove();
                     }
                     
-                    update();
+                    update(d);
                 }
 
                
 
                 initialized();                
-                $scope.draw();
 
                 $scope.buidData($scope.mainApp, generatedData.children);
-                $scope.draw();
+                $scope.draw(root);
 
         },
         link: function(scope) {
