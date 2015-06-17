@@ -56,11 +56,11 @@ app.directive("diagram", function($templateCache) {
                 var i =0;
                 var diagonal;
             
-                var margin = {top: 20, right: 120, bottom: 20, left: 120};
+                var margin = {top: 200, right: 120, bottom: 20, left: 120};
                 var width = 960 - margin.right - margin.left;
-                var height = 500 - margin.top - margin.bottom;
+                var height = 1000 - margin.top - margin.bottom;
                 
-                var generatedData = {"name": $scope.mainApp , "children": [] }
+                var generatedData = [];
 
 
 
@@ -78,31 +78,120 @@ app.directive("diagram", function($templateCache) {
                     return root;
                 }
 
-                $scope.buidData= function (node, targetNode){
-                  console.info('@@@@@@@@@@@', node);
+                $scope.buidMembers = function (membersArray, targetContainer){
+                  for (var i = 0; i < membersArray.length; i++) {
+                    var ngType = membersArray[i][1];
+                    var name = membersArray[i][2][0];
+                    var varType = typeof(membersArray[i][2][1]);
+                    var tmpl = {"name": name, "ng":ngType ,  "type": varType , "inject": membersArray[i][2][1].$inject };
+                    targetContainer.push(tmpl);
+                  };
+                }
 
-                  var requires = angular.module(node).requires;
-                  if (requires.length===0 || angular.module(node)._Spy_) return;
+                $scope.buidData= function (nodeName, targetContainer){
+                  //console.info('@@@@@@@@@@@', nodeName);
+                  var tmpl = {"name": nodeName, "type":"module" , "color": "LightCoral" , "children": [] , "members": []};
+                  targetContainer.push(tmpl);
+                  $scope.buidMembers(angular.module(nodeName)._invokeQueue, tmpl.members);
 
-                  //angular.module(node)._Spy_ = true ; //Dirty flag to avoid graph recursion
-                  angular.forEach(requires, function(value, key) {
-                    if (value!='_Spy_'){
-                      var obj = {"name": value, "color": "red" , "children": [] };
-                      $scope.buidData(value , obj.children);
-                      this.push(obj);
+                  var requires = angular.module(nodeName).requires;
+                  if (requires.length===0 ){
+                    return;  //recursion stop  
+                  }
+                 
+                  for (var i = 0; i < requires.length; i++) {
+                    if (requires[i] !== "_Spy_"){ 
+                      $scope.buidData(requires[i] , tmpl.children); //add hierarchy
                     }
-                  }, targetNode);
+                  };
 
-                  console.info("#######", JSON.stringify( generatedData, null , 2));                                    
-                  
-                  $scope.setRootData(generatedData);                     
+                  //console.info("#######", JSON.stringify( tmpl, null , 2));                                                             
                 }
 
                 $scope.setRootData= function (data){
-                    root = data;
+                    root = data[0];
+                     console.info("#######", JSON.stringify( root, null , 2));    
                 }
 
                 // ************** Generate the tree diagram  *****************
+
+                function buildBox (node) {
+                  // Enter the nodes.
+                  var nodeNew = node.enter().append("g")
+                   .attr("class", "node")
+                   .attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"; }); //place the position on the node on the end of the edge
+
+
+                  //Create the container of the box
+                  var boxWidth = 100, boxHeight = 150;
+                  var nodeEnter= nodeNew.append("g").attr("transform", function(d) {return "translate(" + (-boxWidth/2) + "," + (-boxHeight/2) + ")"; });// plcase the box in the middle
+                  nodeEnter.append("rect")
+                   .attr("width", boxWidth)
+                   .attr("height", boxHeight)
+
+                  //Create the title container
+                  var titleBoxHeight = 20; 
+                  nodeEnter.append("rect")
+                   .attr("width", boxWidth)
+                   .attr("height", titleBoxHeight)
+                   .style("fill", function(d) { return d.color; });
+
+                  nodeEnter.append("text")
+                   .attr("x", boxWidth/2) //center the title
+                   .attr("y", titleBoxHeight/2)
+                   .attr("dy", ".35em")
+                   .attr("text-anchor", "middle")
+                   .text(function(d) { return d.name; })
+                   .style("fill-opacity", 1);  
+
+                   
+                  //Add all methods within an entity 
+                  var membersHeight =  titleBoxHeight * 1.5 ;
+                  nodeEnter.selectAll("AddMemebers").data(function(d) { return d.members; })
+                  .enter()
+                  .append("circle")
+                  .attr("cx", 6)
+                  .attr("cy", function(d,i){
+                        return membersHeight+ titleBoxHeight * i ;
+                   })
+                  .attr("r", 3)
+                  .style("fill", function(d) {
+                      var colour;
+                      switch (d.ng) {
+                          case "directive":
+                              colour = "lightsteelblue";
+                              break;
+                          case "factory":
+                              colour = "brown";
+                              break;
+                          case "constant":
+                              colour = "purple";
+                              break;
+                          case "register":
+                              colour = "green";
+                              break;
+                       } 
+                    return colour;
+                  });
+                  
+                  //Add all methods within an entity 
+                  var membersHeight =  titleBoxHeight * 1.5 ;
+                  nodeEnter.selectAll("AddMemebers").data(function(d) { return d.members; })
+                  .enter()                  
+                  .append("text")
+                  .attr("x", 10) 
+                  .attr("y", function(d,i){
+                        return membersHeight+ titleBoxHeight * i ;
+                   })
+                  .attr("dy", ".35em")
+                  .attr("text-anchor", "left")
+                  .text(function(d) { 
+                     return d.name; 
+                   })
+                  .style("fill-opacity", 1);  
+
+                }
+
                 function update () {
 
                  var container = svg.append("g").attr("id","container");
@@ -112,32 +201,15 @@ app.directive("diagram", function($templateCache) {
                    links = tree.links(nodes);
 
                   // Normalize for fixed-depth.
-                  nodes.forEach(function(d) { d.y = d.depth * 100; });
+                  nodes.forEach(function(d) { d.y = d.depth * 200; });
 
                   // Declare the nodesâ€¦
-                 var node = container.selectAll("g.node").data(nodes, function(d) { return d.id || (d.id = ++i); });
+                 var node = container.selectAll("g.rrr").data(nodes, function(d) { return d.id || (d.id = ++i); });
+                 buildBox(node);
 
-                  // Enter the nodes.
-                  var nodeEnter = node.enter().append("g")
-                   .attr("class", "node")
-                   .attr("transform", function(d) { 
-                    return "translate(" + d.x + "," + d.y + ")"; });
-
-                  nodeEnter.append("circle")
-                   .attr("r", 10)
-                   .style("fill", function(d) { return d.color; });
-
-                  nodeEnter.append("text")
-                   .attr("y", function(d) { 
-                    return d.children || d._children ? -18 : 18; })
-                   .attr("dy", ".35em")
-                   .attr("text-anchor", "middle")
-                   .text(function(d) { return d.name; })
-                   .style("fill-opacity", 1);
 
                   // Declare the linksâ€¦
-                  var link = container.selectAll("path.link")
-                   .data(links, function(d) { return d.target.id; });
+                  var link = container.selectAll("path.link").data(links, function(d) { return d.target.id; });
 
                   // Enter the links.
                   link.enter().insert("path", "g")
@@ -158,7 +230,8 @@ app.directive("diagram", function($templateCache) {
 
                 initialized();                
 
-                $scope.buidData($scope.mainApp, generatedData.children);
+                $scope.buidData($scope.mainApp, generatedData);
+                $scope.setRootData(generatedData);      
                 $scope.draw();
 
         },

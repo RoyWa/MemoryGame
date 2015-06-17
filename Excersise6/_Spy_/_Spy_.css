@@ -5,6 +5,12 @@
  .node circle {
    fill: #fff;
    stroke: steelblue;
+   stroke-width: 1px;
+ }
+
+ .node rect {
+   fill: #fff;
+   stroke: steelblue;
    stroke-width: 3px;
  }
 

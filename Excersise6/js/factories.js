@@ -19,6 +19,7 @@
 		}
 	});
 
+	fact.constant('AAA', 'gggg' );
 
 	/**
 	 * @ngdoc service

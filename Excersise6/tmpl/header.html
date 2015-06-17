@@ -28,7 +28,7 @@
 				<div class="container">
 					<div>
 						<ul class="nav navbar-nav">
-							<li ng-repeat="catalog in catalogs | orderObjectBy:'id' "  ng-click="setCatalog(catalog)"><a href="#">{{catalog.title}}</a></li>
+							<li ng-repeat=" catalog in catalogs | orderObjectBy:'id' "  ng-click="setCatalog(catalog)"><a href="#">{{catalog.title}}</a></li>
 						</ul>
 					</div>
 				</div>
